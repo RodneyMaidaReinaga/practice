@@ -23,6 +23,8 @@ public class HelloController {
                            @RequestParam(value = "destinyPath") String destinyPath,
                            @RequestParam(value = "file") MultipartFile file) throws IOException {
 
+        //System.out.println(completePath(destinyPath));
+
         copyFile(destinyPath, file);
 
         if (name.isEmpty() && lastName.isEmpty()) {
@@ -56,11 +58,20 @@ public class HelloController {
                 }
 
                 Files.copy(inputStream,
-                        Paths.get(destinyPath + filename),
+                        Paths.get(completePath(destinyPath) + filename),
                         StandardCopyOption.REPLACE_EXISTING);
             }
         } else {
             System.out.println("Please select a file to copy");
+        }
+    }
+
+    private String completePath(String path) {
+        char lastChar = path.charAt(path.length() - 1);
+        if (lastChar == '\\') {
+            return path;
+        } else {
+            return path + "\\";
         }
     }
 
