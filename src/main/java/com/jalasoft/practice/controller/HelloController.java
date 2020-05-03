@@ -23,8 +23,6 @@ public class HelloController {
                            @RequestParam(value = "destinyPath") String destinyPath,
                            @RequestParam(value = "file") MultipartFile file) throws IOException {
 
-        //System.out.println(completePath(destinyPath));
-
         copyFile(destinyPath, file);
 
         if (name.isEmpty() && lastName.isEmpty()) {
@@ -70,9 +68,10 @@ public class HelloController {
         char lastChar = path.charAt(path.length() - 1);
         if (lastChar == '\\') {
             return path;
-        } else {
-            return path + "\\";
         }
+
+        return path + "\\";
+
     }
 
 }
