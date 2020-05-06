@@ -80,8 +80,7 @@ public class Task2 {
     /**
      * Resolve what it was required for practices 2 using a for and nest if conditions statements, the first if
      * condition checks if the items of the list starts with a 'A' character, the second if condition checks if
-     * the length of the items (Strings) is less than 5 (on the current list provided on the practice method none
-     * of the items meet this condition) and the third if check if the count of the characters gives an even number,
+     * the length of the items (Strings) is bigger than 5 and the third if check if the count of the characters gives an even number,
      * it checks this using the module operator (%)
      * FYI: the third point of the practice said that the sum of the character be n even number but with what
      * was explained in the class it was clarified that actually it meant to say count of the characters
@@ -92,7 +91,7 @@ public class Task2 {
     public void printListForFilters(List<String> test) {
         for (int index = 0; index < test.size(); index++){
             if (test.get(index).charAt(0) == 'A') {
-                if (test.get(index).length() < 5) {
+                if (test.get(index).length() > 5) {
                     if (((test.get(index).length()) % 2) == 0) {
                         System.out.println(test.get(index));
                     }
@@ -104,8 +103,7 @@ public class Task2 {
     /**
      * Resolve what it was required for practices 2 using a stream.forEach and adding 3 filters to it, the
      * first filter checks if the item (String) of the list starts with a 'A' character, the second filter
-     * checks if the item has a length less than 5 (on the current list provided on the practice method none
-     * of the items meet this condition) and the third filter checks if the length of the item (String) gives
+     * checks if the item has a length bigger than 5 and the third filter checks if the length of the item (String) gives
      * an even number, it checks this using the module operator (%)
      * FYI: the third point of the practice said that the sum of the character be n even number but with what
      * was explained in the class it was clarified that actually it meant to say count of the characters
@@ -116,7 +114,7 @@ public class Task2 {
     public void printListStreamForEachFilters(List<String> test) {
         test.stream()
                 .filter(value -> value.charAt(0) == 'A')
-                .filter(value -> value.length() < 5)
+                .filter(value -> value.length() > 5)
                 .filter(value -> value.length() % 2 == 0)
                 .forEach(value -> System.out.println(value));
     }
