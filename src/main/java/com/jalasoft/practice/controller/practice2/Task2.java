@@ -7,7 +7,7 @@
  * license agreement you entered into with Jalasoft.
  */
 
-package com.jalasoft.practice.controller.Practice2;
+package com.jalasoft.practice.controller.practice2;
 
 import java.util.ArrayList;
 import java.util.List;
