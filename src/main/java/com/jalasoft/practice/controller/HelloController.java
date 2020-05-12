@@ -1,4 +1,5 @@
 /**
+ * Copyright (c) 2020 Jalasoft.
  *
  * This software is the confidential and proprietary information of Jalasoft.
  * ("Confidential Information"). You shall not disclose such Confidential
@@ -75,6 +76,7 @@ public class HelloController {
 
     /**
      * Handles when there is user input for the name and lastName parameters
+     *
      * @param name is a String, is expected to be the name of a person
      * @param lastName is a String, is expected to be the last name of a person
      * @return a String build by the word "Hello" + the values of the name and last name parameters in that order
@@ -90,7 +92,7 @@ public class HelloController {
      * copied to a default location
      *
      * @param destinyPath is a String that represent the path where the file will be saved
-     * @param file is a MultipartFile that represents the file taht will be copied
+     * @param file is a MultipartFile that represents the file that will be copied
      * @throws IOException
      */
 
@@ -121,7 +123,8 @@ public class HelloController {
      * Verifies if the path provided is a complete path, if is not, then it completes it
      *
      * @param path is a String that represent a path
-     * @return a String that represents a complete path, by complete path i mean a path taht last character is a \
+     * @return a String that represents a complete path, by complete path i mean a path that has
+     * as it last character a "\"
      */
 
     private String completePath(String path) {
