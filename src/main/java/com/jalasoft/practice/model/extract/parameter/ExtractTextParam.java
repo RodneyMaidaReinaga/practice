@@ -7,7 +7,9 @@
  *  license agreement you entered into with Jalasoft.
  */
 
-package com.jalasoft.practice.model.parameter;
+package com.jalasoft.practice.model.extract.parameter;
+
+import com.jalasoft.practice.model.extract.exception.ParameterInvalidException;
 
 import java.io.File;
 
@@ -17,6 +19,7 @@ import java.io.File;
  */
 
 public class ExtractTextParam extends Parameter{
+//    private String imageFile;
     private String language;
     private String tessData;
 
@@ -43,13 +46,13 @@ public class ExtractTextParam extends Parameter{
     }
 
     @Override
-    public void validate() throws Exception {
+    public void validate() throws ParameterInvalidException {
         super.validate();
         if (this.language.trim().isEmpty()) {
-            throw new Exception("Error language");
+            throw new ParameterInvalidException();
         }
-        if ("eng".equals(language)) {
-            throw new Exception("Error language not valid");
+        if (!"eng".equals(this.language)) {
+            throw new ParameterInvalidException("language", language);
         }
     }
 }
