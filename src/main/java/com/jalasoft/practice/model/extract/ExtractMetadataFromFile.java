@@ -16,6 +16,10 @@ import com.jalasoft.practice.model.extract.parameter.ExtractTextParam;
 import com.jalasoft.practice.model.extract.parameter.Parameter;
 import com.jalasoft.practice.model.extract.result.Result;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 /**
  * @author Rodney
  * @version 1.1
@@ -25,6 +29,26 @@ public class ExtractMetadataFromFile implements IExtractor<ExtractMetadataParam>
 
     @Override
     public Result extract(ExtractMetadataParam param) throws ParameterInvalidException, ExtractException {
-        return null;
+        param.validate();
+
+        try {
+            String outputFile = param.getOutDir() + param.getInputFile().getName() + "." + param.getType();
+            String command = String.format(
+                    "%s %s > %s",
+                    param.getExifToolBinaryDir(),
+                    param.getInputFile().getAbsolutePath(),
+                    outputFile
+            );
+            Files.createDirectories(Paths.get(param.getOutDir()));
+            System.out.println(command);
+
+            ProcessBuilder builder = new ProcessBuilder("cmd", "/c", "\"" + command + "\"");
+            builder.redirectErrorStream(true);
+            Process process = builder.start();
+            process.waitFor();
+            return new Result(outputFile);
+        } catch (IOException | InterruptedException ex) {
+            throw new ExtractException(ex);
+        }
     }
 }

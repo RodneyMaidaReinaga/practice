@@ -54,5 +54,9 @@ public class ExtractTextParam extends Parameter{
         if (!"eng".equals(this.language)) {
             throw new ParameterInvalidException("language", language);
         }
+        File tessDataFolder = new File(this.tessData);
+        if (!tessDataFolder.exists()) {
+            throw new ParameterInvalidException("tessData", tessData);
+        }
     }
 }

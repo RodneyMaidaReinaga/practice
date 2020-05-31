@@ -30,12 +30,14 @@ public class ExtractorTextFromImage implements IExtractor<ExtractTextParam> {
 
     @Override
     public Result extract(ExtractTextParam param) throws ParameterInvalidException, ExtractException {
-        param.validate();
-        ITesseract ext= new Tesseract();
-        ext.setDatapath(param.getTessData());
-        ext.setLanguage(param.getLanguage());
         try {
+            param.validate();
+            ITesseract ext= new Tesseract();
+            ext.setDatapath(param.getTessData());
+            ext.setLanguage(param.getLanguage());
             return new Result(ext.doOCR(param.getInputFile()));
+        } catch ( NullPointerException ex) {
+            throw new ParameterInvalidException(ex);
         } catch ( TesseractException ex) {
             throw new ExtractException(ex);
         }
