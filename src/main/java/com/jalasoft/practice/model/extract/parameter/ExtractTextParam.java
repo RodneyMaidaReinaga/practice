@@ -12,6 +12,10 @@ package com.jalasoft.practice.model.extract.parameter;
 import com.jalasoft.practice.model.extract.exception.ParameterInvalidException;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Rodney
@@ -22,6 +26,7 @@ public class ExtractTextParam extends Parameter{
 //    private String imageFile;
     private String language;
     private String tessData;
+    private final static List<String> LANGUAGES = Arrays.asList("eng", "spa");
 
     public ExtractTextParam(File file, String language, String tessData) {
         super(file);
@@ -47,16 +52,52 @@ public class ExtractTextParam extends Parameter{
 
     @Override
     public void validate() throws ParameterInvalidException {
-        super.validate();
-        if (this.language.trim().isEmpty()) {
+        if (!inputFile.exists()) {
+            throw new ParameterInvalidException("The input file does not exist");
+        }
+
+        if(inputFile.isHidden()) {
             throw new ParameterInvalidException();
         }
-        if (!"eng".equals(this.language)) {
-            throw new ParameterInvalidException("language", language);
+
+        if(!inputFile.isFile()) {
+            throw new ParameterInvalidException();
         }
+
+        if(inputFile.toPath().toString().contains("..")) {
+            throw new ParameterInvalidException("Invalid input file path.");
+        }
+
+        String mimeType = "";
+        try {
+            mimeType = Files.probeContentType(inputFile.toPath());
+        } catch(IOException ex) {
+            throw new ParameterInvalidException(ex);
+        }
+
+        if (!mimeType.contains("image")) {
+            throw new ParameterInvalidException("input file is not image.");
+        }
+
+        if (this.tessData == null || this.tessData.trim().isEmpty()) {
+            throw new ParameterInvalidException("tessData is null or empty");
+        }
+
         File tessDataFolder = new File(this.tessData);
         if (!tessDataFolder.exists()) {
             throw new ParameterInvalidException("tessData", tessData);
+        }
+
+        if (!tessDataFolder.isDirectory()) {
+            throw new ParameterInvalidException("tessData is not a directory");
+        }
+
+        if (this.language.trim().isEmpty()) {
+            throw new ParameterInvalidException();
+        }
+
+        if (!LANGUAGES.contains(this.language)) {
+            throw new ParameterInvalidException("lang", language);
         }
     }
 }
