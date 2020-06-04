@@ -58,6 +58,7 @@ public class ExtractorController {
     @PostMapping("/extractor")
     public ResponseEntity extract(RequestExtractParameter parameter) {
         try {
+            parameter.validate();
             File image = fileService.store(parameter.getFile(), parameter.getMd5());
             String tessData = properties.getTessdataFolder();
 
@@ -99,7 +100,7 @@ public class ExtractorController {
             );
 
             String fileDownloadUri = fileService.getDaownloadLink(new File(result.getText()));
-
+            System.out.println(result.getText());
             return ResponseEntity.ok().body(
                     new OkResponse<Integer>(fileDownloadUri, HttpServletResponse.SC_OK)
             );

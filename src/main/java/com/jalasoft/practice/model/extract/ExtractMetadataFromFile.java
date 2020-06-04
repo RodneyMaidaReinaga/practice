@@ -40,7 +40,6 @@ public class ExtractMetadataFromFile implements IExtractor<ExtractMetadataParam>
                     outputFile
             );
             Files.createDirectories(Paths.get(param.getOutDir()));
-            System.out.println(command);
 
             ProcessBuilder builder = new ProcessBuilder("cmd", "/c", "\"" + command + "\"");
             builder.redirectErrorStream(true);

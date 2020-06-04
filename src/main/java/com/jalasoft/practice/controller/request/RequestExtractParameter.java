@@ -9,22 +9,24 @@
 
 package com.jalasoft.practice.controller.request;
 
+import com.jalasoft.practice.controller.exception.RequestParamInvalidException;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Rodney
  * @version 1.1
  */
 
-public class RequestExtractParameter {
+public class RequestExtractParameter extends RequestParameter {
     private String language;
-    private String md5;
-    private MultipartFile file;
+    private final static List<String> LANGUAGES = Arrays.asList("eng", "spa");
 
     public RequestExtractParameter(String language, String md5, MultipartFile file) {
+        super(md5, file);
         this.language = language;
-        this.md5 = md5;
-        this.file = file;
     }
 
     public String getLanguage() {
@@ -35,19 +37,29 @@ public class RequestExtractParameter {
         this.language = language;
     }
 
-    public String getMd5() {
-        return md5;
-    }
+    @Override
+    public void validate() throws RequestParamInvalidException {
+        if (this.md5 == null || this.md5.trim().isEmpty()) {
+            throw new RequestParamInvalidException("md5 is null or empty");
+        }
+        if (this.md5.matches("[a-fA-F0-A]{32}")) {
+            throw new RequestParamInvalidException("md5 invalid");
+        }
+        if (this.file == null || this.file.isEmpty()) {
+            throw new RequestParamInvalidException("File is null or empty");
+        }
+        if (this.file.getContentType() == null || !this.file.getContentType().startsWith("image")) {
+            throw new RequestParamInvalidException("Invalid file format");
+        }
+        if (this.file.getOriginalFilename().contains("..")) {
+            throw new RequestParamInvalidException("Invalid file name");
+        }
+        if ((this.language == null) || this.language.isEmpty()) {
+            throw new RequestParamInvalidException("language is null or empty");
+        }
+        if (!LANGUAGES.contains(this.language)) {
+            throw new RequestParamInvalidException("language not allowed");
+        }
 
-    public void setMd5(String md5) {
-        this.md5 = md5;
-    }
-
-    public MultipartFile getFile() {
-        return file;
-    }
-
-    public void setFile(MultipartFile file) {
-        this.file = file;
     }
 }

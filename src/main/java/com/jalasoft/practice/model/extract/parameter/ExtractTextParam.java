@@ -23,7 +23,6 @@ import java.util.List;
  */
 
 public class ExtractTextParam extends Parameter{
-//    private String imageFile;
     private String language;
     private String tessData;
     private final static List<String> LANGUAGES = Arrays.asList("eng", "spa");

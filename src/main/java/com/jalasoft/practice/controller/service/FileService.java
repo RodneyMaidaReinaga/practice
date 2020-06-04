@@ -42,15 +42,11 @@ public class FileService {
     private Properties properties;
 
     public File store(MultipartFile file, String md5) throws FileException {
-//        if (md5.trim().isEmpty()) {
-//            throw new FileException(ErrorConstant.MD5_ERROR);
-//        }
 
         try {
             Path path = this.getFilePath(file.getOriginalFilename());
             String currentMd5 = this.getMd5(path);
             this.validateMd5(currentMd5, md5);
-
             Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             return new File(path.toString());
         } catch (IOException ex) {

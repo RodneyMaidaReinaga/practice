@@ -16,25 +16,42 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * Class that represents the parameters suplied by the user in order to request a conversion of a Pptx file
+ * into a Pdf file
+ * This Class extends from RequestParameter class in order to take advantage of the file and md5 characteristics
+ * of the parent class, however so  far the one actually used is the md5 characteristics, needs to analyze
+ * if its better to create a new parent class specific for the converion feature of the app
+ *
  * @author Rodney
  * @version 1.1
  */
 
-public class RequestExtractMetadataParameter extends RequestParameter {
-    private String outputType;
-    private final static List<String> TYPE_LIST = Arrays.asList("txt","xmp");
+public class RequestConvertPdfxParameter extends RequestParameter{
+    private String sourcePath;
+    private String destinationPath;
+//    private final static List<String> TYPE_LIST = Arrays.asList(
+//            "application/vnd.openxmlformats-officedocument.presentationml.presentation","xmp");
 
-    public RequestExtractMetadataParameter(String outputType, String md5, MultipartFile file) {
+    public RequestConvertPdfxParameter(String md5, MultipartFile file, String sourcePath, String destinationPath) {
         super(md5, file);
-        this.outputType = outputType;
+        this.sourcePath = sourcePath;
+        this.destinationPath = destinationPath;
     }
 
-    public String getOutputType() {
-        return outputType;
+    public String getSourcePath() {
+        return sourcePath;
     }
 
-    public void setOutputType(String outputType) {
-        this.outputType = outputType;
+    public void setSourcePath(String sourcePath) {
+        this.sourcePath = sourcePath;
+    }
+
+    public String getDestinationPath() {
+        return destinationPath;
+    }
+
+    public void setDestinationPath(String destinationPath) {
+        this.destinationPath = destinationPath;
     }
 
     @Override
@@ -53,12 +70,6 @@ public class RequestExtractMetadataParameter extends RequestParameter {
         }
         if (this.file.getOriginalFilename().contains("..")) {
             throw new RequestParamInvalidException("Invalid file name");
-        }
-        if ((this.outputType == null) || this.outputType.isEmpty()) {
-            throw new RequestParamInvalidException("outputType is null or empty");
-        }
-        if (!TYPE_LIST.contains(this.outputType)) {
-            throw new RequestParamInvalidException("outputType not allowed");
         }
     }
 }
