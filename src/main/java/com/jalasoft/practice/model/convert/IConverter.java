@@ -10,6 +10,7 @@
 package com.jalasoft.practice.model.convert;
 
 import com.jalasoft.practice.model.convert.parameter.ConvertPptxToPdfParam;
+import com.jalasoft.practice.model.convert.parameter.ConverterParameter;
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.pdf.PdfPTable;
 
@@ -23,7 +24,7 @@ import java.io.IOException;
  * @version 1.1
  */
 
-public interface IConverter {
+public interface IConverter<T extends ConverterParameter> {
 
     /**
      * The ConvertPptx method should be implemented on any class that implemtes this interface
@@ -34,7 +35,7 @@ public interface IConverter {
      * @throws BadElementException
      */
 
-    PdfPTable convert(ConvertPptxToPdfParam parameter) throws IOException, BadElementException;
+    PdfPTable convert(T parameter) throws IOException, BadElementException;
 }
 
 

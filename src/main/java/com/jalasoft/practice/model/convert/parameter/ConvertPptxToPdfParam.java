@@ -23,42 +23,6 @@ import java.io.FileInputStream;
  * @version 1.1
  */
 
-//public class ConvertPptxToPdfParam {
-//    FileInputStream inputStream;
-//    Document pdfDocument;
-//    PdfWriter pdfWriter;
-//
-//    public ConvertPptxToPdfParam(FileInputStream inputStream, Document pdfDocument, PdfWriter pdfWriter) {
-//        this.inputStream = inputStream;
-//        this.pdfDocument = pdfDocument;
-//        this.pdfWriter = pdfWriter;
-//    }
-//
-//    public FileInputStream getInputStream() {
-//        return inputStream;
-//    }
-//
-//    public void setInputStream(FileInputStream inputStream) {
-//        this.inputStream = inputStream;
-//    }
-//
-//    public Document getPdfDocument() {
-//        return pdfDocument;
-//    }
-//
-//    public void setPdfDocument(Document pdfDocument) {
-//        this.pdfDocument = pdfDocument;
-//    }
-//
-//    public PdfWriter getPdfWriter() {
-//        return pdfWriter;
-//    }
-//
-//    public void setPdfWriter(PdfWriter pdfWriter) {
-//        this.pdfWriter = pdfWriter;
-//    }
-//}
-
 public class ConvertPptxToPdfParam extends ConverterParameter{
     Document pdfDocument;
     PdfWriter pdfWriter;
