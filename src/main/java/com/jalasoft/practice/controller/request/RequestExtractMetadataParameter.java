@@ -9,6 +9,15 @@
 
 package com.jalasoft.practice.controller.request;
 
+import com.jalasoft.practice.common.exception.InvalidDataException;
+import com.jalasoft.practice.common.validation.ExtensionValidation;
+import com.jalasoft.practice.common.validation.IValidatorStrategy;
+import com.jalasoft.practice.common.validation.LanguageValidation;
+import com.jalasoft.practice.common.validation.MD5Validation;
+import com.jalasoft.practice.common.validation.MimeTypeValidation;
+import com.jalasoft.practice.common.validation.MultipartValidation;
+import com.jalasoft.practice.common.validation.NotNullOrEptyValidation;
+import com.jalasoft.practice.common.validation.ValidationContext;
 import com.jalasoft.practice.controller.exception.RequestParamInvalidException;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,27 +47,16 @@ public class RequestExtractMetadataParameter extends RequestParameter {
     }
 
     @Override
-    public void validate() throws RequestParamInvalidException {
-        if (this.md5 == null || this.md5.trim().isEmpty()) {
-            throw new RequestParamInvalidException("md5 is null or empty");
-        }
-        if (this.md5.matches("[a-fA-F0-A]{32}")) {
-            throw new RequestParamInvalidException("md5 invalid");
-        }
-        if (this.file == null || this.file.isEmpty()) {
-            throw new RequestParamInvalidException("File is null or empty");
-        }
-        if (this.file.getContentType() == null || !this.file.getContentType().startsWith("image")) {
-            throw new RequestParamInvalidException("Invalid file format");
-        }
-        if (this.file.getOriginalFilename().contains("..")) {
-            throw new RequestParamInvalidException("Invalid file name");
-        }
-        if ((this.outputType == null) || this.outputType.isEmpty()) {
-            throw new RequestParamInvalidException("outputType is null or empty");
-        }
-        if (!TYPE_LIST.contains(this.outputType)) {
-            throw new RequestParamInvalidException("outputType not allowed");
-        }
+    public void validate() throws InvalidDataException {
+        List<IValidatorStrategy> strategyList = Arrays.asList(
+                new NotNullOrEptyValidation("md5", this.md5),
+                new MD5Validation(this.md5),
+                new MultipartValidation(this.file),
+                new NotNullOrEptyValidation("outputType", this.outputType),
+                new ExtensionValidation(this.outputType)
+
+        );
+        ValidationContext context = new ValidationContext(strategyList);
+        context.validate();
     }
 }

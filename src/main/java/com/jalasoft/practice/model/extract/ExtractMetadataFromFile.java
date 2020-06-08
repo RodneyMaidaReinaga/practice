@@ -9,6 +9,7 @@
 
 package com.jalasoft.practice.model.extract;
 
+import com.jalasoft.practice.common.exception.InvalidDataException;
 import com.jalasoft.practice.model.extract.exception.ExtractException;
 import com.jalasoft.practice.model.extract.exception.ParameterInvalidException;
 import com.jalasoft.practice.model.extract.parameter.ExtractMetadataParam;
@@ -28,9 +29,8 @@ import java.nio.file.Paths;
 public class ExtractMetadataFromFile implements IExtractor<ExtractMetadataParam> {
 
     @Override
-    public Result extract(ExtractMetadataParam param) throws ParameterInvalidException, ExtractException {
+    public Result extract(ExtractMetadataParam param) throws InvalidDataException, ExtractException {
         param.validate();
-
         try {
             String outputFile = param.getOutDir() + param.getInputFile().getName() + "." + param.getType();
             String command = String.format(

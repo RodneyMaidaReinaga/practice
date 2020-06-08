@@ -7,28 +7,26 @@
  *  license agreement you entered into with Jalasoft.
  */
 
-package com.jalasoft.practice.model.extract.parameter;
+package com.jalasoft.practice.common;
 
 import com.jalasoft.practice.common.exception.InvalidDataException;
-import com.jalasoft.practice.model.extract.exception.ParameterInvalidException;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 
 /**
  * @author Rodney
  * @version 1.1
  */
 
-public abstract class Parameter {
-    File inputFile;
-
-    public Parameter(File inputFile) {
-        this.inputFile = inputFile;
+public class Util {
+    public static String getMimeType(File file) {
+        String mimeType = "";
+        try {
+            return mimeType = Files.probeContentType(file.toPath());
+        } catch (IOException ex) {
+            return "";
+        }
     }
-
-    public File getInputFile() {
-        return inputFile;
-    }
-
-    public abstract void validate() throws InvalidDataException;
 }
