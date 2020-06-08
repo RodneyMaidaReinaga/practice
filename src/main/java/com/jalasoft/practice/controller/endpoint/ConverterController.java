@@ -20,6 +20,7 @@ import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
+import org.ghost4j.converter.ConverterException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,7 +37,7 @@ import java.io.IOException;
 
 /**
  * Class that takes care of receive the request to convert a pptx file into a pdf file
- * Also takes care of do the preparations and call the convert metthod
+ * Also takes care of do the preparations and call the convert method
  * Should be also in charge of making the download link but at the moment i have some problems
  * with the  dowload link generation
  *
@@ -53,6 +54,14 @@ public class ConverterController {
 
     @Autowired
     private FileService fileService;
+
+    /**
+     * Method that receive a RequestConvertPdfxParameter as a parameter to requst a convertion of
+     * a pptx file into a pdf file
+     *
+     * @param parameter is a RequestConvertPdfxParameter object
+     * @return a ResponseEntity object or a exception with a download link and response status of Ok or Error
+     */
 
     @PostMapping("/convertor")
     public ResponseEntity convertPPTToPDF(RequestConvertPdfxParameter parameter) {
@@ -89,11 +98,15 @@ public class ConverterController {
             return ResponseEntity.badRequest().body(
                     new ErrorResponse<Integer>(ex.getMessage(), HttpServletResponse.SC_BAD_REQUEST)
             );
-        } catch (IOException ex) {
+        } catch (ConverterException ex) {
             return ResponseEntity.badRequest().body(
                     new ErrorResponse<Integer>(ex.getMessage(), HttpServletResponse.SC_BAD_REQUEST)
             );
         } catch (DocumentException ex) {
+            return ResponseEntity.badRequest().body(
+                    new ErrorResponse<Integer>(ex.getMessage(), HttpServletResponse.SC_BAD_REQUEST)
+            );
+        } catch (IOException ex) {
             return ResponseEntity.badRequest().body(
                     new ErrorResponse<Integer>(ex.getMessage(), HttpServletResponse.SC_BAD_REQUEST)
             );

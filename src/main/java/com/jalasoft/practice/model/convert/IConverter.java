@@ -13,6 +13,7 @@ import com.jalasoft.practice.model.convert.parameter.ConvertPptxToPdfParam;
 import com.jalasoft.practice.model.convert.parameter.ConverterParameter;
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.pdf.PdfPTable;
+import org.ghost4j.converter.ConverterException;
 
 import java.io.IOException;
 
@@ -35,7 +36,7 @@ public interface IConverter<T extends ConverterParameter> {
      * @throws BadElementException
      */
 
-    PdfPTable convert(T parameter) throws IOException, BadElementException;
+    PdfPTable convert(T parameter) throws ConverterException;
 }
 
 
