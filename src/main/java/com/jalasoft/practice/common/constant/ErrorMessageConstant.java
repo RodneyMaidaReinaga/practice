@@ -23,4 +23,7 @@ public class ErrorMessageConstant {
     public final static String EXTENSION_ERROR_MESSAGE = "Invalid extension.";
     public final static String FILE_ERROR_MESSAGE = "Invalid file.";
     public final static String FOLDER_ERROR_MESSAGE = "Invalid folder.";
+    public final static String FILE_INPUT_STREAM_ERROR_MESSAGE = "Invalid fileinput stream.";
+    public final static String DOCUMENT_ERROR_MESSAGE = "Invalid PDF document.";
+    public final static String PDF_WRITER_ERROR_MESSAGE = "Invalid PDF document.";
 }

@@ -9,6 +9,7 @@
 
 package com.jalasoft.practice.controller.endpoint;
 
+import com.jalasoft.practice.common.exception.InvalidDataException;
 import com.jalasoft.practice.controller.component.Properties;
 import com.jalasoft.practice.controller.request.RequestConvertPdfxParameter;
 import com.jalasoft.practice.controller.response.ErrorResponse;
@@ -107,6 +108,10 @@ public class ConverterController {
                     new ErrorResponse<Integer>(ex.getMessage(), HttpServletResponse.SC_BAD_REQUEST)
             );
         } catch (IOException ex) {
+            return ResponseEntity.badRequest().body(
+                    new ErrorResponse<Integer>(ex.getMessage(), HttpServletResponse.SC_BAD_REQUEST)
+            );
+        } catch (InvalidDataException ex) {
             return ResponseEntity.badRequest().body(
                     new ErrorResponse<Integer>(ex.getMessage(), HttpServletResponse.SC_BAD_REQUEST)
             );

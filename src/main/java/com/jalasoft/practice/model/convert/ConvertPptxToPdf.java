@@ -9,6 +9,7 @@
 
 package com.jalasoft.practice.model.convert;
 
+import com.jalasoft.practice.common.exception.InvalidDataException;
 import com.jalasoft.practice.model.convert.parameter.ConvertPptxToPdfParam;
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.Document;
@@ -16,6 +17,7 @@ import com.lowagie.text.Image;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
+import org.apache.poi.POIXMLException;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
 import org.apache.poi.xslf.usermodel.XSLFSlide;
 import org.ghost4j.converter.ConverterException;
@@ -48,9 +50,10 @@ public class ConvertPptxToPdf implements IConverter<ConvertPptxToPdfParam> {
      * @throws BadElementException
      */
 
-    public PdfPTable convert(ConvertPptxToPdfParam parameter) throws ConverterException {
+    public PdfPTable convert(ConvertPptxToPdfParam parameter) throws InvalidDataException,ConverterException {
 
         try {
+            parameter.validate();
             AffineTransform at = new AffineTransform();
 
             PdfPTable table = new PdfPTable(1);
@@ -76,7 +79,11 @@ public class ConvertPptxToPdf implements IConverter<ConvertPptxToPdfParam> {
                 table.addCell(new PdfPCell(slideImage, true));
             }
             return table;
-        } catch (IOException | BadElementException ex) {
+        } catch ( NullPointerException ex) {
+            throw new InvalidDataException(ex);
+        } catch ( POIXMLException ex) {
+            throw new InvalidDataException(ex);
+        }catch (IOException | BadElementException ex) {
             throw new ConverterException(ex.getMessage());
         }
     }

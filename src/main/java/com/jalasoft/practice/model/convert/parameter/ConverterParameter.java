@@ -9,6 +9,8 @@
 
 package com.jalasoft.practice.model.convert.parameter;
 
+import com.jalasoft.practice.common.exception.InvalidDataException;
+
 import java.io.FileInputStream;
 
 /**
@@ -18,7 +20,7 @@ import java.io.FileInputStream;
  * @version 1.1
  */
 
-public class ConverterParameter {
+public abstract class ConverterParameter {
     FileInputStream inputStream;
 
     public ConverterParameter(FileInputStream inputStream) {
@@ -32,4 +34,6 @@ public class ConverterParameter {
     public void setInputStream(FileInputStream inputStream) {
         this.inputStream = inputStream;
     }
+
+    public abstract void validate() throws InvalidDataException;
 }

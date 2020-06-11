@@ -9,6 +9,7 @@
 
 package com.jalasoft.practice.model.convert;
 
+import com.jalasoft.practice.common.exception.InvalidDataException;
 import com.jalasoft.practice.model.convert.parameter.ConvertPptxToPdfParam;
 import com.jalasoft.practice.model.convert.parameter.ConverterParameter;
 import com.lowagie.text.BadElementException;
@@ -36,7 +37,7 @@ public interface IConverter<T extends ConverterParameter> {
      * @throws BadElementException
      */
 
-    PdfPTable convert(T parameter) throws ConverterException;
+    PdfPTable convert(T parameter) throws InvalidDataException, ConverterException;
 }
 
 
