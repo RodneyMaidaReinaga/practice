@@ -16,7 +16,8 @@ import com.jalasoft.practice.controller.request.RequestConvertPdfxParameter;
 import com.jalasoft.practice.controller.response.ErrorResponse;
 import com.jalasoft.practice.controller.response.OkResponse;
 import com.jalasoft.practice.controller.service.FileService;
-import com.jalasoft.practice.model.convert.ConvertPptxToPdf;
+import com.jalasoft.practice.model.convert.ConvertFactory;
+import com.jalasoft.practice.model.convert.IConverter;
 import com.jalasoft.practice.model.convert.parameter.ConvertPptxToPdfParam;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -70,7 +71,7 @@ public class ConverterController {
     @PostMapping("/convertor")
     public ResponseEntity convertPPTToPDF(RequestConvertPdfxParameter parameter) {
 
-        ConvertPptxToPdf convertPptxToPdf = new ConvertPptxToPdf();
+        IConverter<ConvertPptxToPdfParam> convertPptxToPdf = ConvertFactory.createConverter(ConvertFactory.PPTX);
         String outfile = properties.getPublicFolder() +
                 parameter.getFile().getOriginalFilename() +
                 ".pdf";

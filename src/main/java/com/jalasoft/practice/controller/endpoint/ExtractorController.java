@@ -17,8 +17,7 @@ import com.jalasoft.practice.controller.request.RequestExtractParameter;
 import com.jalasoft.practice.controller.response.ErrorResponse;
 import com.jalasoft.practice.controller.response.OkResponse;
 import com.jalasoft.practice.controller.service.FileService;
-import com.jalasoft.practice.model.extract.ExtractMetadataFromFile;
-import com.jalasoft.practice.model.extract.ExtractorTextFromImage;
+import com.jalasoft.practice.model.extract.ExtractFactory;
 
 import com.jalasoft.practice.model.extract.IExtractor;
 import com.jalasoft.practice.model.extract.exception.ExtractException;
@@ -56,7 +55,7 @@ public class ExtractorController {
             File image = fileService.store(parameter.getFile(), parameter.getMd5());
             String tessData = properties.getTessdataFolder();
 
-            IExtractor<ExtractTextParam> ext = new ExtractorTextFromImage();
+            IExtractor<ExtractTextParam> ext = ExtractFactory.createExtract(ExtractFactory.TEXT);
             Result result = ext.extract(new ExtractTextParam(image, parameter.getLanguage(), tessData));
 
             return ResponseEntity.ok().body(
@@ -86,7 +85,7 @@ public class ExtractorController {
         try {
             parameter.validate();
             File image = fileService.store(parameter.getFile(), parameter.getMd5());
-            IExtractor<ExtractMetadataParam> ext = new ExtractMetadataFromFile();
+            IExtractor<ExtractMetadataParam> ext = ExtractFactory.createExtract(ExtractFactory.METADATA);
             Result result = ext.extract(
                     new ExtractMetadataParam(image,
                             parameter.getOutputType(),

@@ -36,7 +36,7 @@ import java.util.List;
  * @version 1.1
  */
 
-public class ConvertPptxToPdf implements IConverter<ConvertPptxToPdfParam> {
+class ConvertPptxToPdf implements IConverter<ConvertPptxToPdfParam> {
 
     /**
      * Class taht implementes the IConverter interface, takes charge of the necessary
