@@ -21,11 +21,9 @@ import java.util.Map;
 public class ConvertFactory {
 
     public final static String PPTX = "pptx";
-    public final static String PPT = "ppt";
     public final static Map<String, IConverter> convertMap = new HashMap<String, IConverter>() {
         {
             put(PPTX, new ConvertPptxToPdf());
-            //put(PPT, new ExtractMetadataFromFile());
         }
     };
 
