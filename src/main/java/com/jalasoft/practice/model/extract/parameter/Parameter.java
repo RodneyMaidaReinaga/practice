@@ -10,7 +10,6 @@
 package com.jalasoft.practice.model.extract.parameter;
 
 import com.jalasoft.practice.common.exception.InvalidDataException;
-import com.jalasoft.practice.model.extract.exception.ParameterInvalidException;
 
 import java.io.File;
 

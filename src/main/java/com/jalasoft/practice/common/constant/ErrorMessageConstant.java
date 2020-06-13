@@ -15,7 +15,7 @@ package com.jalasoft.practice.common.constant;
  */
 
 public class ErrorMessageConstant {
-    public final static String NOT_BULL_OR_EMPTY_MESSAGE = "% cannot be null or empty.";
+    public final static String NOT_NULL_OR_EMPTY_MESSAGE = "% cannot be null or empty.";
     public final static String MD5_ERROR_MESSAGE = "Invalid MD5.";
     public final static String MULTIPART_ERROR_MESSAGE = "Invalid Multipart file.";
     public final static String MIME_TYPE_ERROR_MESSAGE = "Invalid mine type.";
@@ -26,4 +26,5 @@ public class ErrorMessageConstant {
     public final static String FILE_INPUT_STREAM_ERROR_MESSAGE = "Invalid fileinput stream.";
     public final static String DOCUMENT_ERROR_MESSAGE = "Invalid PDF document.";
     public final static String PDF_WRITER_ERROR_MESSAGE = "Invalid PDF document.";
+    public final static String FILE_TYPE_NOT_SUPPORTED_MESSAGE = "File provided is not supported.";
 }

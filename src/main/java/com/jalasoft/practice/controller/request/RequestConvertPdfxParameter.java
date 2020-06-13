@@ -10,13 +10,11 @@
 package com.jalasoft.practice.controller.request;
 
 import com.jalasoft.practice.common.exception.InvalidDataException;
-import com.jalasoft.practice.common.validation.ExtensionValidation;
 import com.jalasoft.practice.common.validation.IValidatorStrategy;
 import com.jalasoft.practice.common.validation.MD5Validation;
 import com.jalasoft.practice.common.validation.MultipartValidation;
 import com.jalasoft.practice.common.validation.NotNullOrEptyValidation;
 import com.jalasoft.practice.common.validation.ValidationContext;
-import com.jalasoft.practice.controller.exception.RequestParamInvalidException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
@@ -35,14 +33,12 @@ import java.util.List;
 
 public class RequestConvertPdfxParameter extends RequestParameter{
     private String sourcePath;
-    private String destinationPath;
-//    private final static List<String> TYPE_LIST = Arrays.asList(
-//            "application/vnd.openxmlformats-officedocument.presentationml.presentation","xmp");
 
-    public RequestConvertPdfxParameter(String md5, MultipartFile file, String sourcePath, String destinationPath) {
+    public RequestConvertPdfxParameter(String md5,
+                                       MultipartFile file,
+                                       String sourcePath) {
         super(md5, file);
         this.sourcePath = sourcePath;
-        this.destinationPath = destinationPath;
     }
 
     public String getSourcePath() {
@@ -53,22 +49,13 @@ public class RequestConvertPdfxParameter extends RequestParameter{
         this.sourcePath = sourcePath;
     }
 
-    public String getDestinationPath() {
-        return destinationPath;
-    }
-
-    public void setDestinationPath(String destinationPath) {
-        this.destinationPath = destinationPath;
-    }
-
     @Override
     public void validate() throws InvalidDataException {
         List<IValidatorStrategy> strategyList = Arrays.asList(
                 new NotNullOrEptyValidation("md5", this.md5),
                 new MD5Validation(this.md5),
                 new MultipartValidation(this.file),
-                new NotNullOrEptyValidation("Source path", this.sourcePath),
-                new NotNullOrEptyValidation("destination path", this.destinationPath)
+                new NotNullOrEptyValidation("Source path", this.sourcePath)
         );
 
         ValidationContext context = new ValidationContext(strategyList);

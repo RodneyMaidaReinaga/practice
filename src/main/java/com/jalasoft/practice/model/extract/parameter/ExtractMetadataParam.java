@@ -14,11 +14,9 @@ import com.jalasoft.practice.common.exception.InvalidDataException;
 import com.jalasoft.practice.common.validation.ExtensionValidation;
 import com.jalasoft.practice.common.validation.FileValidation;
 import com.jalasoft.practice.common.validation.IValidatorStrategy;
-import com.jalasoft.practice.common.validation.LanguageValidation;
 import com.jalasoft.practice.common.validation.MimeTypeValidation;
 import com.jalasoft.practice.common.validation.NotNullOrEptyValidation;
 import com.jalasoft.practice.common.validation.ValidationContext;
-import com.jalasoft.practice.model.extract.exception.ParameterInvalidException;
 
 import java.io.File;
 import java.util.Arrays;

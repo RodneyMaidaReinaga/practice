@@ -9,21 +9,15 @@
 
 package com.jalasoft.practice.model.convert.parameter;
 
-import com.jalasoft.practice.common.Util;
 import com.jalasoft.practice.common.exception.InvalidDataException;
 import com.jalasoft.practice.common.validation.FileInputStreamValidation;
-import com.jalasoft.practice.common.validation.FileValidation;
 import com.jalasoft.practice.common.validation.IValidatorStrategy;
-import com.jalasoft.practice.common.validation.LanguageValidation;
-import com.jalasoft.practice.common.validation.MimeTypeValidation;
-import com.jalasoft.practice.common.validation.NotNullOrEptyValidation;
 import com.jalasoft.practice.common.validation.DocumentValidation;
 import com.jalasoft.practice.common.validation.PdfWriterValidation;
 import com.jalasoft.practice.common.validation.ValidationContext;
 import com.lowagie.text.Document;
 import com.lowagie.text.pdf.PdfWriter;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.util.Arrays;
 import java.util.List;

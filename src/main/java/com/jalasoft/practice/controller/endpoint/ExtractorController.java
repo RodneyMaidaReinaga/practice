@@ -95,7 +95,6 @@ public class ExtractorController {
             );
 
             String fileDownloadUri = fileService.getDaownloadLink(new File(result.getText()));
-            System.out.println(result.getText());
             return ResponseEntity.ok().body(
                     new OkResponse<Integer>(fileDownloadUri, HttpServletResponse.SC_OK)
             );

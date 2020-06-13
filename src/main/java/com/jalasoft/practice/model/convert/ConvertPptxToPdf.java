@@ -12,11 +12,10 @@ package com.jalasoft.practice.model.convert;
 import com.jalasoft.practice.common.exception.InvalidDataException;
 import com.jalasoft.practice.model.convert.parameter.ConvertPptxToPdfParam;
 import com.lowagie.text.BadElementException;
-import com.lowagie.text.Document;
 import com.lowagie.text.Image;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
-import com.lowagie.text.pdf.PdfWriter;
+import com.lowagie.text.Rectangle;
 import org.apache.poi.POIXMLException;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
 import org.apache.poi.xslf.usermodel.XSLFSlide;
@@ -26,7 +25,6 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -63,10 +61,12 @@ public class ConvertPptxToPdf implements IConverter<ConvertPptxToPdfParam> {
             Dimension pgsize = ppt.getPageSize();
 
             List<XSLFSlide> slide = Arrays.asList(ppt.getSlides());
-            parameter.getPdfDocument().setPageSize(new com.lowagie.text.Rectangle((float) pgsize.getWidth(), (float) pgsize.getHeight()));
+            parameter.
+                    getPdfDocument().
+                    setPageSize(new Rectangle((float) pgsize.getWidth(), (float) pgsize.getHeight()));
             parameter.getPdfWriter().open();
             parameter.getPdfDocument().open();
-            com.lowagie.text.Image slideImage;
+            Image slideImage;
             for (XSLFSlide slid : slide) {
                 BufferedImage img = new BufferedImage((int) Math.ceil(pgsize.width),
                         (int) Math.ceil(pgsize.height),

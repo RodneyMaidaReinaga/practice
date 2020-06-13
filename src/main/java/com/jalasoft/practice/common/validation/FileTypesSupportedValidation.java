@@ -9,28 +9,25 @@
 
 package com.jalasoft.practice.common.validation;
 
-import com.jalasoft.practice.common.exception.InvalidDataException;
 import com.jalasoft.practice.common.constant.ErrorMessageConstant;
+import com.jalasoft.practice.common.exception.InvalidDataException;
 
 /**
  * @author Rodney
  * @version 1.1
  */
 
-public class NotNullOrEptyValidation implements IValidatorStrategy{
+public class FileTypesSupportedValidation implements IValidatorStrategy{
+    private String fileType;
 
-    private String field;
-    private String value;
-
-    public NotNullOrEptyValidation(String field, String value) {
-        this.field = field;
-        this.value = value;
+    public FileTypesSupportedValidation(String value) {
+        this.fileType = value;
     }
 
     @Override
     public void valdiate() throws InvalidDataException {
-        if (this.value == null || this.value.trim().isEmpty()) {
-            throw new InvalidDataException(String.format(ErrorMessageConstant.NOT_NULL_OR_EMPTY_MESSAGE, this.field));
+        if (this.fileType == null || this.fileType.trim().isEmpty()) {
+            throw new InvalidDataException(String.format(ErrorMessageConstant.FILE_TYPE_NOT_SUPPORTED_MESSAGE));
         }
     }
 }

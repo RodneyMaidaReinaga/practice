@@ -11,10 +11,7 @@ package com.jalasoft.practice.model.extract;
 
 import com.jalasoft.practice.common.exception.InvalidDataException;
 import com.jalasoft.practice.model.extract.exception.ExtractException;
-import com.jalasoft.practice.model.extract.exception.ParameterInvalidException;
 import com.jalasoft.practice.model.extract.parameter.ExtractMetadataParam;
-import com.jalasoft.practice.model.extract.parameter.ExtractTextParam;
-import com.jalasoft.practice.model.extract.parameter.Parameter;
 import com.jalasoft.practice.model.extract.result.Result;
 
 import java.io.IOException;

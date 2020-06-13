@@ -10,7 +10,6 @@
 package com.jalasoft.practice.model.convert;
 
 import com.jalasoft.practice.common.exception.InvalidDataException;
-import com.jalasoft.practice.model.convert.parameter.ConvertPptxToPdfParam;
 import com.jalasoft.practice.model.convert.parameter.ConverterParameter;
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.pdf.PdfPTable;
