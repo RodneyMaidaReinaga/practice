@@ -7,27 +7,10 @@
  *  license agreement you entered into with Jalasoft.
  */
 
-package com.jalasoft.practice.model.extract.parameter;
+package com.jalasoft.practice.common.validation;
 
 import com.jalasoft.practice.common.exception.InvalidDataException;
 
-import java.io.File;
-
-/**
- * @author Rodney
- * @version 1.1
- */
-
-public abstract class Parameter {
-    File inputFile;
-
-    public Parameter(File inputFile) {
-        this.inputFile = inputFile;
-    }
-
-    public File getInputFile() {
-        return inputFile;
-    }
-
-    public abstract void validate() throws InvalidDataException;
+public interface IValidatorStrategy {
+    void valdiate() throws InvalidDataException;
 }

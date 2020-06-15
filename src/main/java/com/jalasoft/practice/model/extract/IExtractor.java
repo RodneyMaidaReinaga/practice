@@ -9,12 +9,11 @@
 
 package com.jalasoft.practice.model.extract;
 
+import com.jalasoft.practice.common.exception.InvalidDataException;
 import com.jalasoft.practice.model.extract.exception.ExtractException;
-import com.jalasoft.practice.model.extract.exception.ParameterInvalidException;
-import com.jalasoft.practice.model.extract.parameter.ExtractTextParam;
 import com.jalasoft.practice.model.extract.parameter.Parameter;
 import com.jalasoft.practice.model.extract.result.Result;
 
 public interface IExtractor<T extends Parameter> {
-    Result extract(T param) throws ParameterInvalidException, ExtractException;
+    Result extract(T param) throws InvalidDataException, ExtractException;
 }

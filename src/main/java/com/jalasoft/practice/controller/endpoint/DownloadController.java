@@ -9,9 +9,13 @@
 
 package com.jalasoft.practice.controller.endpoint;
 
+import com.jalasoft.practice.common.exception.InvalidDataException;
+import com.jalasoft.practice.common.validation.FileTypesSupportedValidation;
+import com.jalasoft.practice.common.validation.IValidatorStrategy;
+import com.jalasoft.practice.common.validation.ValidationContext;
 import com.jalasoft.practice.controller.component.Properties;
 import com.jalasoft.practice.controller.response.ErrorResponse;
-import com.jalasoft.practice.controller.response.Response;
+import com.jalasoft.practice.controller.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -26,6 +30,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Rodney
@@ -39,19 +45,35 @@ public class DownloadController {
     @Autowired
     private Properties properties;
 
+    @Autowired
+    private FileService fileService;
+
     @GetMapping("/download/{fileName:.+}")
     public ResponseEntity downloadFile(@PathVariable("fileName") String fileName) {
 
         try {
-            String commonContentType = "application/octet-stream";
+            this.validateSupportedFiles(fileService.getFileContentType(fileName));
+            String fileContentType = fileService.getFileContentType(fileName);
             Path path = Paths.get(properties.getPublicFolder() + fileName);
             Resource resource = new UrlResource(path.toUri());
-            return ResponseEntity.ok().contentType(MediaType.parseMediaType(commonContentType))
+            return ResponseEntity.ok().contentType(MediaType.parseMediaType(fileContentType))
                     .body(resource);
         } catch (MalformedURLException ex) {
             return ResponseEntity.badRequest().body(
                     new ErrorResponse<Integer>(ex.getLocalizedMessage(), HttpServletResponse.SC_BAD_REQUEST)
             );
+        } catch (InvalidDataException ex) {
+            return ResponseEntity.badRequest().body(
+                    new ErrorResponse<Integer>(ex.getMessage(), HttpServletResponse.SC_BAD_REQUEST)
+            );
         }
+    }
+
+    private void validateSupportedFiles(String contentType) throws InvalidDataException {
+        List<IValidatorStrategy> strategyList = Arrays.asList(
+                new FileTypesSupportedValidation(contentType)
+        );
+        ValidationContext context = new ValidationContext(strategyList);
+        context.validate();
     }
 }

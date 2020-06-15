@@ -9,11 +9,10 @@
 
 package com.jalasoft.practice.model.extract;
 
+import com.jalasoft.practice.common.exception.InvalidDataException;
 import com.jalasoft.practice.model.extract.exception.ExtractException;
-import com.jalasoft.practice.model.extract.exception.ParameterInvalidException;
 import com.jalasoft.practice.model.extract.parameter.ExtractTextParam;
 
-import com.jalasoft.practice.model.extract.parameter.Parameter;
 import com.jalasoft.practice.model.extract.result.Result;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
@@ -26,10 +25,10 @@ import net.sourceforge.tess4j.TesseractException;
  * @version 1.1
  */
 
-public class ExtractorTextFromImage implements IExtractor<ExtractTextParam> {
+class ExtractorTextFromImage implements IExtractor<ExtractTextParam> {
 
     @Override
-    public Result extract(ExtractTextParam param) throws ParameterInvalidException, ExtractException {
+    public Result extract(ExtractTextParam param) throws InvalidDataException, ExtractException {
         try {
             param.validate();
             ITesseract ext= new Tesseract();
@@ -37,7 +36,7 @@ public class ExtractorTextFromImage implements IExtractor<ExtractTextParam> {
             ext.setLanguage(param.getLanguage());
             return new Result(ext.doOCR(param.getInputFile()));
         } catch ( NullPointerException ex) {
-            throw new ParameterInvalidException(ex);
+            throw new InvalidDataException(ex);
         } catch ( TesseractException ex) {
             throw new ExtractException(ex);
         }
